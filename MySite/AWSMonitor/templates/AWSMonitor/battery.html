@@ -1,0 +1,551 @@
+{% extends "AWSMonitor/base.html" %}
+{% block content %}
+    <style type="text/css">
+     #map_container{
+        height: 400px;
+         width:100%;
+        margin: 0px;
+      }
+    </style>
+
+    <div class="content-section">
+        <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                                    <div class="wiget-box transparent">
+                                        <div class="widget-header widget-header-flat">
+                                            <h4 class="widget-title lighter">
+                                                <i class="ace-icon fa fa-desktop orange"></i>
+                                                状态监控
+                                            </h4>
+                                            <div class="widget-toolbar">
+                                                <span class="badge badge-success">正常</span>
+                                                <span class="badge badge-warning">异常</span>
+                                                <span class="badge badge-danger">故障</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body" style="display: block;">
+                                        <div class="widget-main no-padding">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead class="thin-border-bottom">
+                                                            <tr>
+                                                                <th>
+                                                                    <i class="ace-icon fa fa-caret-right blue"></i>区站号
+                                                                </th>
+
+                                                                <th>
+                                                                    <i class="ace-icon fa fa-caret-right blue"></i>站名
+                                                                </th>
+
+                                                                <th class="hidden-480">
+                                                                    <i class="ace-icon fa fa-caret-right blue"></i>电压
+                                                                </th>
+                                                                <th class="hidden-480">
+                                                                    <i class="ace-icon fa fa-caret-right blue"></i>心跳包时间
+                                                                </th>
+                                                                <th class="hidden-480">
+                                                                    <i class="ace-icon fa fa-caret-right blue"></i>通讯成功时间
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>O2694</td>
+                                                                <td>市区-李楼 </td>
+                                                                <td class="hidden-480">
+                                                                    <span class="label label-warning arrowed-right arrowed-in">10.9V</span>
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>O2694</td>
+                                                                <td>市区-李楼 </td>
+                                                                <td class="hidden-480">
+                                                                    <span class="label label-warning arrowed-right arrowed-in">10.9V</span>
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>O2694</td>
+                                                                <td>市区-李楼 </td>
+                                                                <td class="hidden-480">
+                                                                    <span class="label label-warning arrowed-right arrowed-in">10.9V</span>
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>O2694</td>
+                                                                <td>市区-李楼 </td>
+                                                                <td class="hidden-480">
+                                                                    <span class="label label-warning arrowed-right arrowed-in">10.9V</span>
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>O2694</td>
+                                                                <td>市区-李楼 </td>
+                                                                <td class="hidden-480">
+                                                                    <span class="label label-warning arrowed-right arrowed-in">10.9V</span>
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>O2694</td>
+                                                                <td>市区-李楼 </td>
+                                                                <td class="hidden-480">
+                                                                    <span class="label label-warning arrowed-right arrowed-in">10.9V</span>
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>O2694</td>
+                                                                <td>市区-李楼 </td>
+                                                                <td class="hidden-480">
+                                                                    <span class="label label-warning arrowed-right arrowed-in">10.9V</span>
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>O2694</td>
+                                                                <td>市区-李楼 </td>
+                                                                <td class="hidden-480">
+                                                                    <span class="label label-warning arrowed-right arrowed-in">10.9V</span>
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                                <td class="hidden-480">
+                                                                    2018-4-12 15:00
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div>
+                                                        <h5>
+                                                            <p>
+                                                                电压正常:224个  欠压：14个 不正常： 4个
+                                                            </p>
+                                                            <p>通讯正常：235个 不在线14个 传输异常：3个</p>
+
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            <div class="col-md-7">
+                                                <div id="map_container" tabindex="0"></div>
+                                                <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=a4fc3c44dd1fe8745050cb5a5c5e2709"></script>
+                                                <script type="text/javascript">
+                                                    var map = new AMap.Map('map_container',{
+                                                        resizeEnable: true,
+                                                        zoom: 10,
+                                                        center: [116.480983, 40.0958]
+                                                    });
+                                                </script>
+                                            </div>
+                                            </div>
+
+                                        </div><!-- /.widget-main -->
+                                    </div>
+
+                                </div>
+            <!-- /.row -->
+            </div> <!-- /.row -->
+            <div class="row" style="height: 15px"></div>
+           <div class="row">
+                <div class="col-md-12">
+                    <div class="wiget-box transparent">
+                        <div class="widget-header widget-header-flat">
+                            <h4 class="widget-title lighter">
+                                <i class="ace-icon fa fa-clock-o orange"></i>
+                                传输时效
+                            </h4>
+                            <div class="widget-toolbar">
+                                <span class="badge badge-success">正常</span>
+                                <span class="badge badge-warning">逾限</span>
+                                <span class="badge badge-danger">缺报</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-body" style="display: block;">
+                        <div class="widget-main no-padding">
+
+                            <div class="col-md-12">
+                                <table id="example" class="table table-bordered table-striped">
+                                <thead class="thin-border-bottom">
+                                    <tr>
+                                        <th rowspan="2">
+                                            区站号
+                                        </th>
+                                        <th rowspan="2">
+                                            站名
+                                        </th>
+
+                                        <th colspan="12" class="text-center">
+                                            2018-4-25
+                                        </th>
+                                        <th colspan="12" class="text-center">
+                                            2018-4-26
+                                        </th>
+                                     </tr>
+                                    <tr>
+                                        <td>13</td>
+                                        <td>14</td>
+                                        <td>15</td>
+                                        <td>16</td>
+                                        <td>17</td>
+                                        <td>18</td>
+                                        <td>19</td>
+                                        <td>20</td>
+                                        <td>21</td>
+                                        <td>22</td>
+                                        <td>23</td>
+                                        <td>00</td>
+                                        <td>01</td>
+                                        <td>02</td>
+                                        <td>03</td>
+                                        <td>04</td>
+                                        <td>05</td>
+                                        <td>06</td>
+                                        <td>07</td>
+                                        <td>08</td>
+                                        <td>09</td>
+                                        <td>10</td>
+                                        <td>11</td>
+                                        <td>12</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>O2694</td>
+                                        <td>洛阳-李楼</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>O2694</td>
+                                        <td>洛阳-李楼</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>O2694</td>
+                                        <td>洛阳-李楼</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>O2694</td>
+                                        <td>洛阳-李楼</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="label-warning"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>O2694</td>
+                                        <td>洛阳-李楼</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>O2694</td>
+                                        <td>洛阳-李楼</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="label-danger"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>O2694</td>
+                                        <td>洛阳-李楼</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>O2694</td>
+                                        <td>洛阳-李楼</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>O2694</td>
+                                        <td>洛阳-李楼</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="label-danger"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>O2694</td>
+                                        <td>洛阳-李楼</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                            </div>
+                        </div><!-- /.widget-main -->
+                    </div>
+
+                </div> <!-- /.col-md-5 -->
+
+            </div> <!-- /.row -->
+
+        </div> <!-- /.container -->
+    </div> <!-- /.content-section -->
+{% endblock %}

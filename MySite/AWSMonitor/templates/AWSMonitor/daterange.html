@@ -1,0 +1,436 @@
+{% extends "AWSMonitor/base.html" %}
+
+{% block content %}
+<link href="http://cdn.bootcss.com/bootstrap-daterangepicker/2.1.25/daterangepicker.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/bootstrap-daterangepicker/2.1.25/moment.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap-daterangepicker/2.1.25/daterangepicker.js"></script>
+    <script>
+        $(function () {
+            $('#example').DataTable({
+                "scrollY":"220px",
+                "paging":         false,
+                "scrollCollapse": true,
+                "searching":false,
+                "bInfo": false,
+                "ordering":false,
+                bAutoWidth: false,
+
+            });
+            alert('ok')
+        })
+    </script>
+    <div class="input-group">
+        <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+            <i class="fa fa-calendar"></i>
+            <span>时间</span>
+            <i class="fa fa-caret-down"></i>
+        </button>
+    </div>
+    <div class="input-group">
+        <button type="button" class="btn btn-default pull-right" id="daterange-btn2">
+            <i class="fa fa-calendar"></i>
+            <span>时间</span>
+            <i class="fa fa-caret-down"></i>
+        </button>
+    </div>
+    <div>
+                                <table id="example" class="table table-bordered table-striped">
+                                <thead class="thin-border-bottom">
+                                    <tr>
+                                        <th rowspan="2">
+                                            区站号
+                                        </th>
+                                        <th rowspan="2">
+                                            站名
+                                        </th>
+
+                                        <th colspan="12" class="text-center">
+                                            2018-4-25
+                                        </th>
+                                        <th colspan="12" class="text-center">
+                                            2018-4-26
+                                        </th>
+                                     </tr>
+                                    <tr>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+                                        <td style="width:3px">13</td>
+
+                                    </tr>
+                                </thead>
+{#                                <tbody>#}
+{#                                    <tr>#}
+{#                                        <td>O2694</td>#}
+{#                                        <td>洛阳-李楼</td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                    </tr>#}
+{#                                    <tr>#}
+{#                                        <td>O2694</td>#}
+{#                                        <td>洛阳-李楼</td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                    </tr>#}
+{#                                    <tr>#}
+{#                                        <td>O2694</td>#}
+{#                                        <td>洛阳-李楼</td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                    </tr>#}
+{#                                    <tr>#}
+{#                                        <td>O2694</td>#}
+{#                                        <td>洛阳-李楼</td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td class="label-warning"></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                    </tr>#}
+{#                                    <tr>#}
+{#                                        <td>O2694</td>#}
+{#                                        <td>洛阳-李楼</td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                    </tr>#}
+{#                                    <tr>#}
+{#                                        <td>O2694</td>#}
+{#                                        <td>洛阳-李楼</td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td class="label-danger"></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                    </tr>#}
+{#                                    <tr>#}
+{#                                        <td>O2694</td>#}
+{#                                        <td>洛阳-李楼</td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                    </tr>#}
+{#                                    <tr>#}
+{#                                        <td>O2694</td>#}
+{#                                        <td>洛阳-李楼</td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                    </tr>#}
+{#                                    <tr>#}
+{#                                        <td>O2694</td>#}
+{#                                        <td>洛阳-李楼</td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td class="label-danger"></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                    </tr>#}
+{#                                    <tr>#}
+{#                                        <td>O2694</td>#}
+{#                                        <td>洛阳-李楼</td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                        <td></td>#}
+{#                                    </tr>#}
+{#                                </tbody>#}
+
+                            </table>
+                            </div>
+    <script>
+    //定义locale汉化插件
+        var locale = {
+            "format": 'YYYY-MM-DD',
+            "separator": " -222 ",
+            "applyLabel": "确定",
+            "cancelLabel": "取消",
+            "fromLabel": "起始时间",
+            "toLabel": "结束时间'",
+            "customRangeLabel": "自定义",
+            "weekLabel": "W",
+            "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+            "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            "firstDay": 1
+        };
+        ranges={
+                    '今日': [moment(), moment()],
+                    '昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '最近7日': [moment().subtract(6, 'days'), moment()],
+                    '最近30日': [moment().subtract(29, 'days'), moment()],
+                    '本月': [moment().startOf('month'), moment().endOf('month')],
+                    '上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+               }
+    function init() {
+
+        //初始化显示当前时间
+        $('#daterange-btn span').html(moment().subtract('hours', 1).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
+        //日期控件初始化
+        $('#daterange-btn').daterangepicker(
+            {
+                'locale': locale,
+                //汉化按钮部分
+                ranges: ranges,
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+            function (start, end) {
+                $('#daterange-btn span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+                alert(start)
+            }
+       );
+    };
+    function init2() {
+
+        //初始化显示当前时间
+        $('#daterange-btn2 span').html(moment().subtract('hours', 1).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
+        //日期控件初始化
+        $('#daterange-btn2').daterangepicker(
+            {
+                'locale': locale,
+                //汉化按钮部分
+                ranges: ranges,
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+            function (start, end) {
+                $('#daterange-btn2 span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+                alert(start)
+            }
+       );
+    };
+    $(document).ready(function() {
+        init();
+        init2();
+
+    });
+</script>
+
+
+{% endblock %}

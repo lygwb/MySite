@@ -1,0 +1,364 @@
+{% extends "AWSMonitor/base.html" %}
+
+{% block content %}
+   <style type="text/css">
+     #map_container{
+        height: 280px;
+         width:100%;
+        margin: 0px;
+      }
+    </style>
+    <script>
+     //定义locale汉化插件
+        var locale = {
+            "format": 'YYYY-MM-DD',
+            "separator": " -222 ",
+            "applyLabel": "确定",
+            "cancelLabel": "取消",
+            "fromLabel": "起始时间",
+            "toLabel": "结束时间'",
+            "customRangeLabel": "自定义",
+            "weekLabel": "W",
+            "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+            "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            "firstDay": 1
+        };
+        ranges={
+                    '今日': [moment(), moment()],
+                    '昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '最近7日': [moment().subtract(6, 'days'), moment()],
+                    '最近30日': [moment().subtract(29, 'days'), moment()],
+                    '本月': [moment().startOf('month'), moment().endOf('month')],
+                    '上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+               }
+        function init() {
+
+            //初始化显示当前时间
+            $('#daterange-btn span').html(moment().subtract('hours', 1).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
+            //日期控件初始化
+            $('#daterange-btn').daterangepicker(
+                {
+                    'locale': locale,
+                    //汉化按钮部分
+                    ranges: ranges,
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+                    $.ajax({
+                        url:''
+                    })
+                }
+           );
+        };
+        function init2() {
+
+            //初始化显示当前时间
+            $('#daterange-btn2 span').html(moment().subtract('hours', 1).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
+            //日期控件初始化
+            $('#daterange-btn2').daterangepicker(
+                {
+                    'locale': locale,
+                    //汉化按钮部分
+                    ranges: ranges,
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn2 span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+                    alert(start)
+                }
+           );
+        };
+        $(document).ready(function() {
+            init();
+            init2();
+
+        });
+        $(function() {
+            $('#example').DataTable({
+                "scrollY":"220px",
+                "paging":         false,
+                "scrollCollapse": true,
+                "searching":false,
+                "bInfo": false,
+            });
+            $('#historys').DataTable({
+                "scrollY":"250px",
+                "paging":         false,
+                "scrollCollapse": true,
+                "searching":false,
+                "bInfo": false,
+
+            });
+
+        });
+
+    </script>
+
+    <div class="content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div id="map_container" tabindex="0"></div>
+                    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=a4fc3c44dd1fe8745050cb5a5c5e2709"></script>
+                    <script type="text/javascript">
+                        var map = new AMap.Map('map_container',{
+                            resizeEnable: true,
+                            zoom: 10,
+                            center: [116.480983, 40.0958]
+                        });
+                    </script>
+                </div> <!-- 地图 !-->
+                <div class="col-md-3">
+                    <div class="wiget-box transparent">
+                        <div class="widget-header widget-header-flat">
+                            <h4 class="widget-title lighter">
+                                <i class="ace-icon fa fa-home orange"></i>
+                                基本信息
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="widget-body" style="display: block;">
+                        <div class="widget-main no-padding">
+                            <div class="row">
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> 站名 </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="name">{{  station.stationName}}</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> 区站号 </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="username">{{station.stationNum}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> 地址 </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="age">{{ station.address }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> 经纬度 </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="signup">东经{{ station.longitude }}，北纬{{ station.latitude }}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> 海拔高度 </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="signup">{{ station.high }}米</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> 采集器类型 </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="login">{{ equip.equip_name }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> 加入时间 </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="about">2017-11-10</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div><!-- /.widget-main -->
+                    </div>
+
+                </div> <!-- /.基本信息 -->
+                <div class="col-md-6"> <!-- 组建列表!-->
+
+                    <table id="example" class="table table-responsive" >
+                        <thead>
+                            <tr>
+                                <td><strong>序号</strong></td>
+                                <td><strong>设备名称</strong></td>
+                                <td><strong>设备二维码</strong></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for instrument in instruments %}
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ instrument.instrument_name }}</td>
+                                <td>{{ instrument.instrument_code }}</td>
+                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.col-md-4 -->
+            </div> <!-- /.row -->
+            <div class="row" style="padding-top: 5px">
+                <div class="col-md-9">
+                    <div class="wiget-box transparent">
+                        <div class="widget-header widget-header-flat">
+
+                            <h4 class="widget-title lighter">
+                                <i class="ace-icon fa fa-clock-o orange"></i>
+                                传输时效
+                            </h4>
+
+                            <div class="widget-toolbar">
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                                        <i class="fa fa-calendar"></i>
+                                        <span>时间</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                </div>
+                                <span class="badge badge-warning">逾限</span>
+                                <span class="badge badge-danger">缺报</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-body" style="display: block;">
+                        <div class="widget-main no-padding">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-striped" id="intimes">
+                                        <thead class="thin-border-bottom">
+                                            <tr>
+                                                <th>
+                                                    日期
+                                                </th>
+                                                <td>00</td>
+                                                <td>01</td>
+                                                <td>02</td>
+                                                <td>03</td>
+                                                <td>04</td>
+                                                <td>05</td>
+                                                <td>06</td>
+                                                <td>07</td>
+                                                <td>08</td>
+                                                <td>09</td>
+                                                <td>10</td>
+                                                <td>11</td>
+                                                <td>12</td>
+                                                <td>13</td>
+                                                <td>14</td>
+                                                <td>15</td>
+                                                <td>16</td>
+                                                <td>17</td>
+                                                <td>18</td>
+                                                <td>19</td>
+                                                <td>20</td>
+                                                <td>21</td>
+                                                <td>22</td>
+                                                <td>23</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for intime in intimes %}
+                                                <tr>
+                                                    <td>{{ intime.time |date:'m-d'}}</td>
+                                                    {% for h in intime.h24s %}
+                                                        {% if h == 0 %}
+                                                            <td style="background-color: red"></td>
+                                                        {% elif h == 1 %}
+                                                            <td style="background-color: yellow"></td>
+                                                        {% else %}
+                                                            <td></td>
+                                                        {% endif %}
+
+                                                    {% endfor %}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <h4>所选时间段</h4>
+                                        <h5>
+                                            <p> 缺报时次：{{ missing }}次 &nbsp &nbsp 逾限报时次：{{ delay }}次</p>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- /.widget-main -->
+                    </div>
+                </div> <!-- /.col-md-5 -->
+                <div class="col-md-3">
+                    <div class="wiget-box transparent">
+                        <div class="widget-header widget-header-flat">
+                            <h4 class="widget-title lighter">
+                                <i class="ace-icon fa fa-calendar-minus-o orange"></i>
+                                历史故障
+                            </h4>
+                            <div class="widget-toolbar">
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-default pull-right" id="daterange-btn2">
+                                        <i class="fa fa-calendar"></i>
+                                        <span>时间</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="widget-body" style="display: block;">
+                        <div class="widget-main no-padding">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-striped" id="historys">
+                                        <thead class="thin-border-bottom">
+                                            <tr>
+                                                <th>
+                                                    故障开始时间
+                                                </th>
+                                                <th>
+                                                    持续时间
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for history in historys %}
+                                            <tr>
+                                                <td>{{ history.time | date:'m-d G:i' }}</td>
+                                                <td>{{  history.duration }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+
+                                    </table>
+                                    <div>
+                                        <h4>所选时间段</h4>
+                                        <h5>
+                                            <p> 故障次数：{{ historys |length }}</p>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- /.widget-main -->
+                    </div>
+                </div> <!--历史故障列表!-->
+            </div>
+        </div> <!-- /.container -->
+    </div> <!-- /.content-section -->
+
+{% endblock %}
+
+

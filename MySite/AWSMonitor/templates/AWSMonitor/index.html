@@ -1,0 +1,277 @@
+
+{% extends "AWSMonitor/base.html" %}
+
+{% block content %}
+
+    <style type="text/css">
+     #map_container{
+        height: 550px;
+         width:100%;
+        margin: 0px;
+      }
+    </style>
+
+    <!--初始化代码-->
+    <script>
+         $(document).ready(function() {
+               $('#fault_list').DataTable({
+                   'paging':false,
+                   'dom':''
+               });
+
+              $('#example').DataTable( {
+                    "scrollY":        "380px",
+                    "paging":         false,
+                    "scrollCollapse": true,
+                   'language':{
+                       'search':'查找',
+                       "sProcessing": "处理中...",
+                      "sLengthMenu": "显示 _MENU_ 项结果",
+                      "sZeroRecords": "没有匹配结果",
+                      "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                      "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                      "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                      "sInfoPostFix": "",
+                      "sSearch": "搜索:",
+                      "sUrl": "",
+                      "sEmptyTable": "表中数据为空",
+                      "sLoadingRecords": "载入中...",
+                   },
+                   "columnDefs":[
+                    {
+
+                        "targets":[2, 3],
+                        "searchable":false
+                    }],
+                    } );
+          });
+    </script>
+    <div class="content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="wiget-box transparent">
+                        <div class="widget-header widget-header-flat">
+                            <h4 class="widget-title lighter">
+                                <i class="ace-icon fa fa-exclamation-circle  orange"></i>
+                                异常区域站
+                            </h4>
+                            <div class="widget-toolbar">
+                                <span class="badge badge-success">正常</span>
+                                <span class="badge badge-warning">超时</span>
+                                <span class="badge badge-danger">关闭</span>
+                                <span class="badge">被动</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-body" style="display: block;">
+                        <div class="widget-main no-padding">
+                            <table class="table table-bordered table-striped" id="fault_list">
+                                <thead class="thin-border-bottom">
+                                    <tr>
+                                        <th>区站号</th>
+                                        <th>站名</th>
+                                        <th>故障开始时间</th>
+                                        <th>持续时间</th>
+                                        <th>最后心跳时间</th>
+                                        <th>通讯成功时间</th>
+                                        <th>通讯状态</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="thin-border-bottom">
+                                    {% for item in fault %}
+                                        <tr>
+                                            <td>{{ item.station_code }}  </td>
+                                            <td>{{ item.station_name }} </td>
+                                            <td>{{ item.begin_time |date:'Y-m-d G:i'}}</td>
+                                            <td>
+                                                {{ item.duration }}
+                                            </td>
+                                            <td>
+                                                {{ item.last_heart }}
+                                            </td>
+                                            <td>
+                                                {{ item.last_data_recv }}
+                                            </td>
+                                            <td>
+                                                {% if item.status == 'OK' %}
+                                                    <span class="badge badge-success">正常</span>
+                                                {% endif %}
+                                                {% if item.status == 'ST' %}
+                                                    <span class="badge badge-warning">超时</span>
+                                                {% endif %}
+                                                {% if item.status == 'OFF' %}
+                                                    <span class="badge badge-danger">关闭</span>
+                                                {% endif %}
+                                                {% if item.status == '' %}
+                                                    <span class="badge">被动</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                 </tbody>
+                            </table>
+                        </div><!-- /.widget-main -->
+                    </div>
+                </div> <!-- /.col-md-5 -->
+                <!-- /.col-md-4 -->
+            </div> <!-- /.row -->
+            <div class="row" style="padding: 5px"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="wiget-box transparent">
+                        <div class="widget-header widget-header-flat">
+                            <h4 class="widget-title lighter">
+                                <i class="ace-icon fa fa-info orange"></i>
+                                数据检索
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="widget-body" style="display: block;">
+                        <div class="widget-main no-padding">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="tabbable">
+                                    <ul class="nav nav-tabs" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#yuliang">
+                                                <i class="green ace-icon fa fa-tint bigger-120"></i>
+                                                雨量
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#qiwen">
+                                                <i class="green ace-icon fa fa-thermometer-4 bigger-120"></i>
+                                                气温
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#qiya">
+                                                气压
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#shidu">
+                                                湿度
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#feng">
+                                                风向风速
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div class="col-md-7">
+                                           <div id="map_container" tabindex="0"></div>
+                                                <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=a4fc3c44dd1fe8745050cb5a5c5e2709"></script>
+                                                <script type="text/javascript">
+                                                    var map = new AMap.Map('map_container',{
+                                                        resizeEnable: true,
+                                                        zoom: 10,
+                                                        center: [116.480983, 40.0958]
+                                                    });
+                                                </script>
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <table class="table" id="example">
+                                                <thead class="thin-border-bottom">
+                                                        <tr>
+                                                            <th>
+                                                                <i class="ace-icon fa fa-caret-right blue"></i>区站号
+                                                            </th>
+
+                                                            <th>
+                                                                <i class="ace-icon fa fa-caret-right blue"></i>站名
+                                                            </th>
+
+                                                            <th class="hidden-480">
+                                                                <i class="ace-icon fa fa-caret-right blue"></i>温度
+                                                            </th>
+                                                            <th class="hidden-480">
+                                                                <i class="ace-icon fa fa-caret-right blue"></i>时间
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                <tbody>
+                                                {% for aws_value in aws_values %}
+                                                    <tr>
+                                                        <td>{{ aws_value.1 }}</td>
+                                                        <td>{{ aws_value.0 }}</td>
+                                                        <td>{{ aws_value.2 }}</td>
+                                                        <td>{{ aws_value.3 |date:'m-d G:i'}}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            <div id="tongji">
+                                                <br>
+                                                <span>
+                                                    统计信息：
+                                                </span>
+                                                <ul class="nav ace-nav">
+                                                    <li style="width: 15px;"></li>
+                                                    <li class="light-grey dropdown-modal">
+                                                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                                            <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+                                                            <span class="user-info">
+                                                                <small>站点数</small>
+                                                                {{ tongji.count }}
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li style="width: 15px;"></li>
+                                                    <li class="light-blue dropdown-modal">
+                                                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                                            <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+                                                            <span class="user-info">
+                                                                <small>平均气温</small>
+                                                                {{ tongji.average }}
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li style="width: 15px;"></li>
+                                                    <li class="red dropdown-modal">
+                                                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                                            <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+                                                            <span class="user-info">
+                                                                <small>最高气温</small>
+                                                                {{ tongji.max }}
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li style="width: 15px;"></li>
+                                                    <li class="green dropdown-modal">
+                                                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                                            <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+                                                            <span class="user-info">
+                                                                <small>最低气温</small>
+                                                                {{ tongji.min }}
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                </div>
+
+                            </div>
+                        </div><!-- /.widget-main -->
+                    </div>
+                </div> <!-- /.col-md-5 -->
+                <div class="col-md-6">
+                </div> <!-- /.col-md-4 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </div> <!-- /.content-section -->
+{% endblock %}
+

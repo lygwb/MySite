@@ -1,0 +1,134 @@
+{% extends "AWSMonitor/base.html" %}
+
+{% block content %}
+
+    <script>
+     //定义locale汉化插件
+        var locale = {
+            "format": 'YYYY-MM-DD',
+            "separator": " -222 ",
+            "applyLabel": "确定",
+            "cancelLabel": "取消",
+            "fromLabel": "起始时间",
+            "toLabel": "结束时间'",
+            "customRangeLabel": "自定义",
+            "weekLabel": "W",
+            "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+            "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            "firstDay": 1
+        };
+        ranges={
+                    '今日': [moment(), moment()],
+                    '昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '最近7日': [moment().subtract(6, 'days'), moment()],
+                    '最近30日': [moment().subtract(29, 'days'), moment()],
+                    '本月': [moment().startOf('month'), moment().endOf('month')],
+                    '上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+               }
+        function init() {
+
+            //初始化显示当前时间
+            $('#daterange-btn span').html(moment().subtract('hours', 1).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
+            //日期控件初始化
+            $('#daterange-btn').daterangepicker(
+                {
+                    'locale': locale,
+                    //汉化按钮部分
+                    ranges: ranges,
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+                    $.ajax({
+                        url:''
+                    })
+                }
+           );
+        };
+        $(document).ready(function() {
+            init();
+        });
+        $(function() {
+            $('#intimes').DataTable({
+                "scrollY":"220px",
+                "paging":         false,
+                "scrollCollapse": true,
+                "searching":false,
+                "bInfo": false,
+            });
+            $('#historys').DataTable({
+                "scrollY":"250px",
+                "paging":         false,
+                "scrollCollapse": true,
+                "searching":false,
+                "bInfo": false,
+
+            });
+
+        });
+
+    </script>
+
+    <div class="content-section">
+        <div class="container">
+            <div class="row" style="padding-top: 5px">
+                <div class="col-md-12">
+                    <div class="wiget-box transparent">
+                        <div class="widget-header widget-header-flat">
+
+                            <h4 class="widget-title lighter">
+                                <i class="ace-icon fa fa-clock-o orange"></i>
+                                上传率统计
+                            </h4>
+
+                            <div class="widget-toolbar">
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                                        <i class="fa fa-calendar"></i>
+                                        <span>时间</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-body" style="display: block;">
+                        <div class="widget-main no-padding">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <table class="table table-bordered table-striped" id="intimes">
+                                        <thead class="thin-border-bottom">
+                                            <tr>
+                                                <th>县市名</th>
+                                                <td>总时次</td>
+                                                <td>缺报率</td>
+                                                <td>逾限率</td>
+                                                <td>正点率</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for tongji in tongjis %}
+                                                <tr>
+                                                    <td>{{ tongji.name }}</td>
+                                                    <td>{{ tongji.count }}</td>
+                                                    <td><strong>{{ tongji.missing_perc }}%</strong>({{ tongji.missing }})</td>
+                                                    <td><strong>{{ tongji.delay_perc }}%</strong>({{ tongji.delay }})</td>
+                                                    <td><strong>{{ tongji.intime_perc }}%</strong>({{ tongji.intime }})</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+
+                        </div><!-- /.widget-main -->
+                    </div>
+                </div> <!-- /.col-md-5 -->
+
+            </div>
+        </div> <!-- /.container -->
+    </div> <!-- /.content-section -->
+
+{% endblock %}
